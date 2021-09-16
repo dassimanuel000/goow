@@ -1,0 +1,48 @@
+{
+  "name": "goow",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .eslintignore .",
+    "lint-fix": "eslint --ext .js,.vue --fix --ignore-path .eslintignore ."
+  },
+  "dependencies": {
+    "@nuxtjs/auth": "^4.9.1",
+    "@nuxtjs/axios": "^5.12.5",
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/moment": "^1.6.1",
+    "braintree": "^3.3.0",
+    "core-js": "^3.8.2",
+    "laravel-echo": "^1.10.0",
+    "nuxt": "^2.14.12",
+    "pusher-js": "^7.0.3",
+    "vue-clickaway": "^2.2.2",
+    "vue-observe-visibility": "^1.0.0",
+    "vue-range-component": "^1.0.3",
+    "vue-slick-carousel": "^1.0.6",
+    "vue-smooth-picker": "^0.4.2",
+    "vue-sweetalert2": "^4.2.1",
+    "vue2-google-maps": "^0.10.7",
+    "vuedraggable": "^2.24.3",
+    "vuejs-datepicker": "^1.6.2",
+    "vuex-persistedstate": "^4.0.0-beta.3"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config": "^5.0.0",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.4.1",
+    "fibers": "^5.0.0",
+    "prettier": "^2.2.1",
+    "sass": "^1.32.7",
+    "sass-loader": "^10.1.1"
+  }
+}

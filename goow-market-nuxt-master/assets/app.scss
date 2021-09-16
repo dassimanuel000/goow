@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fbfbfb;
+}
+
+.container {
+  max-width: 1260px;
+  margin: 0 auto;
+
+  @media only screen and (max-width: 1216px) {
+    padding: 24px;
+  }
+}
+
+input:focus,
+button:focus {
+  outline: none;
+}
+
+@keyframes spin-animation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
