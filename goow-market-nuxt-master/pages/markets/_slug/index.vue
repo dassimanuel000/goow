@@ -823,7 +823,10 @@
             </div>
           </div>
           <div class="discover">
-            <p>Découvrez les marchands</p>
+            <p @click="getNumMerchand()">
+              Découvrez les marchands
+              {{ options.id_merch }}
+            </p>
             <div class="discover__column">
               <div class="discover__left">
                 <!-- <a v-if="isMyMarket" class="discover__edit edit-button">
@@ -857,7 +860,9 @@
                         />
                       </a>
                       <div class="roundIconMarchand">
-                        <a href="#"> {{ item.id }} </a>
+                        <a href="#">
+                          {{ options.id_merch[index] }}
+                        </a>
                       </div>
                     </div>
                     <!-- <a
@@ -1041,6 +1046,7 @@ export default {
         fullscreenControl: false,
         disableDefaultUI: false,
         styles: require('~/static/json/map.json'),
+        id_merch: res.id_merchand,
       }
       return {
         market,
@@ -1194,6 +1200,7 @@ export default {
         active: false,
         data: '',
       },
+      num_merchand_by_activity: '',
     }
   },
   computed: {
@@ -1247,6 +1254,7 @@ export default {
       }
     })
     this.getUsers()
+    // this.getNumMerchand()
   },
   methods: {
     filter(id) {
@@ -1456,6 +1464,11 @@ export default {
     getUsers() {
       this.$axios.get('/api/users').then((response) => {
         this.users = response.data
+      })
+    },
+    getNumMerchand() {
+      this.$axios.get('get_num_merchand').then((response) => {
+        alert(this.merchantActivities.index)
       })
     },
   },

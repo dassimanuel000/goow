@@ -49,7 +49,7 @@
       </div>
     </div>
     <div v-else class="profile__content">
-      <p class="profile__title">Mes commandes</p>
+      <p class="profile__title">Mes commandes {{ route }}</p>
       <div class="profile__row">
         <button
           :class="[status.includes('IN_PROGRESS') ? 'active' : '']"
@@ -59,7 +59,7 @@
           En cours
         </button>
         <div class="roundIconCount">
-          <a href="#"> {{ orders.length }} </a>
+          <a href="#"> {{ route }} </a>
         </div>
         <button
           :class="[status === 'COMPLETED' ? 'active' : '']"
@@ -69,7 +69,7 @@
           Terminées
         </button>
         <div class="roundIconCount">
-          <a href="#"> {{ orders.status }} </a>
+          <a href="#"> {{ orders.length }} </a>
         </div>
       </div>
       <OrderItem v-for="(item, index) in orders" :key="index" :item="item" />
@@ -85,9 +85,11 @@ export default {
       orderInfo: [],
       status: 'IN_PROGRESS',
       orders: [],
+      route: [],
     }
   },
   mounted() {
+    this.route_exemple()
     if (this.$auth.user.is_merchant) {
       this.getMerchantsOrders('PENDING')
     } else {
@@ -122,6 +124,11 @@ export default {
       } else {
         return true
       }
+    },
+    route_exemple() {
+      this.$axios.$get('route').then((response) => {
+        this.route = response
+      })
     },
   },
 }

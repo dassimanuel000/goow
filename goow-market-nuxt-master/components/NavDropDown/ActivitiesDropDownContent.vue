@@ -3,7 +3,7 @@
     <div
       v-for="activity in filteredActivities"
       :key="`filter_activity_${activity.title}`"
-      class="content-item"
+      class="content-item text_transform"
       :style="'background-color: ' + activity.color"
       @click="handleActivity(activity.id)"
     >

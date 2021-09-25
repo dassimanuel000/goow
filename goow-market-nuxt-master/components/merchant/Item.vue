@@ -1,5 +1,5 @@
 <template>
-  <div class="merchant-item__wrap">
+  <div class="merchant-item__wrap" @mouseover="num_produit_get()">
     <nuxt-link
       class="nodecoration"
       :to="`/markets/${merchant.market.slug}/merchants/${merchant.slug}`"
@@ -37,7 +37,7 @@
             </div>
             <div class="merchant-item__tag num_produit">
               <a style="text-decoration: none" class="text" href="">
-                {{ '8 ' }}
+                {{ num_produit_merchand }}
               </a>
               <svg
                 style="margin-left: 5px"
@@ -150,6 +150,23 @@ export default {
     merchant: {
       type: Object,
     },
+  },
+  data() {
+    return {
+      num_produit_merchand: '',
+    }
+  },
+  methods: {
+    num_produit_get() {
+      this.$axios
+        .$get('num_produit_get?id_merchand=' + this.merchant.id)
+        .then((response) => {
+          this.num_produit_merchand = response
+        })
+    },
+  },
+  beforeMount() {
+    this.num_produit_get()
   },
 }
 </script>

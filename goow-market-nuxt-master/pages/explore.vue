@@ -1,5 +1,5 @@
 <template>
-  <div class="explore">
+  <div class="explore" @mouseover="name_activity_get()">
     <div class="explore__header">
       <p class="explore__title">
         En un clic, choisissez votre marché préféré et laissez-vous guider !
@@ -18,15 +18,31 @@
           <div v-else>
             <p class="explore__small-title">{{ filtercity }}</p>
           </div>
-          <div class="content dontCloseOnClick">
+          <div
+            v-if="filterData.city || filterData.activity"
+            class="content dontCloseOnClick"
+          >
             <div class="content-item">
-              <button class="profile__button">
+              <button
+                class="profile__button"
+                style="text-transform: capitalize"
+              >
                 {{ filterData.city }}
+                <center>
+                  <button class="btn-small" @click="deletefilterData()">
+                    x
+                  </button>
+                </center>
               </button>
             </div>
-            <div class="content-item" :style="'background-color: limegreen'">
-              {{ filterData.activity }}
-              {{ updateFilterActivity(filterData.activity) }}
+            <div
+              class="content-item"
+              :style="'background-color: ' + name_activity.color"
+            >
+              {{ name_activity.title }}
+              <center>
+                <button class="btn-small" @click="deletefilterData()">x</button>
+              </center>
             </div>
           </div>
           <div class="explore__slider-controller">
@@ -546,6 +562,7 @@ export default {
           ],
         },
       },
+      name_activity: '',
     }
   },
   watch: {
@@ -615,6 +632,17 @@ export default {
             this.shops = res
           }
         })
+    },
+    name_activity_get() {
+      this.$axios
+        .$get('route?id_activity=' + this.filterData.activity)
+        .then((response) => {
+          this.name_activity = response
+        })
+    },
+    deletefilterData() {
+      this.filterData.city = null
+      this.filterData.activity = null
     },
   },
 }
@@ -791,7 +819,9 @@ export default {
   flex-wrap: wrap;
   justify-content: flex-start;
   &-item {
+    height: 40px !important;
     display: flex;
+    font-family: sans-serif;
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
@@ -803,6 +833,18 @@ export default {
       margin-left: 10px;
       width: 20px;
     }
+  }
+  .btn-small {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background-color: orangered;
+    border: none;
+    border-radius: 45%;
+    color: #fff;
+    margin: 8px;
+    font-size: 12px;
+    font-weight: bolder;
   }
 }
 </style>

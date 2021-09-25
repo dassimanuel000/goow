@@ -365,6 +365,24 @@
             :delay="500"
             :delay-on-touch-only="true"
           >
+            <a class="listcategory">
+              <div class="listcategory__title">
+                <div class="category">
+                  <div class="category__item" @click="openFormAddCategory()">
+                    <div class="category__button">
+                      <a
+                        class="category__button category__button--add"
+                        target="_blank"
+                      >
+                      </a>
+                    </div>
+                    <div class="category__title">
+                      <p>Ajouter une catégorie</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
             <a
               v-for="item in productCategories"
               :key="item.id"
@@ -415,6 +433,26 @@
               </div>
             </a>
           </draggable>
+        </div>
+        <div id="FormAddCategory">
+          <div class="modal__header">
+            <p class="description-modal__title">Ajouter une catégorie</p>
+          </div>
+          <form action="#" @submit.prevent="addCategory">
+            <input
+              v-model="formDataCategory.title"
+              class="add-modal__form-input"
+              placeholder="Nom de la catégorie *"
+              type="text"
+              @input="errors.clear('title')"
+            />
+            <p v-if="errors.has('title')" class="add-modal__error">
+              Veuillez ajouter un nom à la catégorie.
+            </p>
+            <button type="submit" class="add-modal__form-button">
+              Enregistrer
+            </button>
+          </form>
         </div>
         <p
           v-if="categoryError"
@@ -1261,31 +1299,32 @@
               </div> -->
             </div>
             <div v-if="productCategories.length">
-              <CategoryAdd v-if="isMyMerchant" />
-              <div v-if="isMyMerchant" class="categoryButton">
+              <div v-if="isMyMerchant">
                 <div v-if="productCategories.length != 'null'">
-                  <div class="categoryButton__icon">
-                    <a
-                      target="_blank"
-                      @click="$nuxt.$emit('open-listcategory-modal')"
-                    >
-                      <svg
-                        width="35"
-                        height="35"
-                        viewBox="0 0 39 39"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                  <div class="category">
+                    <div class="category__button">
+                      <a
+                        target="_blank"
+                        @click="$nuxt.$emit('open-listcategory-modal')"
                       >
-                        <path
-                          d="M0 19.5C0 8.73045 8.73045 0 19.5 0C30.2696 0 39 8.73045 39 19.5C39 30.2696 30.2696 39 19.5 39C8.73045 39 0 30.2696 0 19.5Z"
-                          fill="#E8E8E8"
-                        />
-                        <path
-                          d="M26.7794 12.5909C26.5588 11.9432 26.1176 11.2955 25.2353 10.6477C24.5735 10.2159 23.9118 10 23.0294 10C22.1471 10 21.4853 10.4318 21.0441 11.0795L13.1029 22.3068C12.6618 22.5227 12.4412 23.1705 12.2206 25.7614C12 27.0568 12 28.3523 12 28.3523C12 28.3523 12 28.3523 12 28.5682C12 29 12.4412 29.2159 12.6618 29C12.6618 29 12.6618 29 12.8824 29C12.8824 29 13.9853 28.5682 15.3088 27.9205C17.7353 26.8409 18.1765 26.4091 18.3971 25.9773L26.5588 14.75C27 14.1023 27 13.4545 26.7794 12.5909ZM24.5735 11.7273C25.0147 12.1591 25.4559 12.5909 25.4559 13.0227C25.6765 13.4545 25.4559 13.8864 25.4559 14.1023C25.2353 14.3182 25.0147 14.5341 24.5735 14.5341C23.9118 14.5341 23.4706 14.3182 23.0294 13.8864C22.1471 13.4545 21.7059 12.375 22.1471 11.7273C22.5882 11.0795 23.6912 11.0795 24.5735 11.7273ZM17.2941 25.3295C17.2941 25.3295 16.8529 25.7614 14.6471 26.8409C14.2059 27.0568 13.7647 27.2727 13.3235 27.4886C13.3235 27.0568 13.3235 26.625 13.5441 25.9773C13.7647 23.3864 13.9853 22.9545 13.9853 22.9545L20.8235 13.4545C21.0441 14.1023 21.4853 14.5341 22.1471 14.9659C22.8088 15.3977 23.4706 15.6136 24.1324 15.6136L17.2941 25.3295Z"
-                          fill="#6E6E6E"
-                        />
-                      </svg>
-                    </a>
+                        <svg
+                          width="35"
+                          height="35"
+                          viewBox="0 0 39 39"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 19.5C0 8.73045 8.73045 0 19.5 0C30.2696 0 39 8.73045 39 19.5C39 30.2696 30.2696 39 19.5 39C8.73045 39 0 30.2696 0 19.5Z"
+                            fill="#E8E8E8"
+                          />
+                          <path
+                            d="M26.7794 12.5909C26.5588 11.9432 26.1176 11.2955 25.2353 10.6477C24.5735 10.2159 23.9118 10 23.0294 10C22.1471 10 21.4853 10.4318 21.0441 11.0795L13.1029 22.3068C12.6618 22.5227 12.4412 23.1705 12.2206 25.7614C12 27.0568 12 28.3523 12 28.3523C12 28.3523 12 28.3523 12 28.5682C12 29 12.4412 29.2159 12.6618 29C12.6618 29 12.6618 29 12.8824 29C12.8824 29 13.9853 28.5682 15.3088 27.9205C17.7353 26.8409 18.1765 26.4091 18.3971 25.9773L26.5588 14.75C27 14.1023 27 13.4545 26.7794 12.5909ZM24.5735 11.7273C25.0147 12.1591 25.4559 12.5909 25.4559 13.0227C25.6765 13.4545 25.4559 13.8864 25.4559 14.1023C25.2353 14.3182 25.0147 14.5341 24.5735 14.5341C23.9118 14.5341 23.4706 14.3182 23.0294 13.8864C22.1471 13.4545 21.7059 12.375 22.1471 11.7273C22.5882 11.0795 23.6912 11.0795 24.5735 11.7273ZM17.2941 25.3295C17.2941 25.3295 16.8529 25.7614 14.6471 26.8409C14.2059 27.0568 13.7647 27.2727 13.3235 27.4886C13.3235 27.0568 13.3235 26.625 13.5441 25.9773C13.7647 23.3864 13.9853 22.9545 13.9853 22.9545L20.8235 13.4545C21.0441 14.1023 21.4853 14.5341 22.1471 14.9659C22.8088 15.3977 23.4706 15.6136 24.1324 15.6136L17.2941 25.3295Z"
+                            fill="#6E6E6E"
+                          />
+                        </svg>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1878,6 +1917,7 @@ export default {
       } catch (e) {
         this.errors.record(e.response.data.errors)
       }
+      document.getElementById('FormAddCategory').style.display = 'none'
     },
     async updateCategory() {
       this.categoryId = this.modalBox.data.id
@@ -1971,6 +2011,9 @@ export default {
         return false
       }
       return false
+    },
+    openFormAddCategory() {
+      document.getElementById('FormAddCategory').style.display = 'block'
     },
   },
 }
@@ -3652,5 +3695,73 @@ export default {
 }
 .smooth-picker .smooth-handle-layer .smooth-top {
   border-bottom: none !important;
+}
+</style>
+
+<style lang="scss" scoped>
+.category {
+  display: flex;
+  width: 250px;
+  height: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 16px;
+  border-radius: 30px;
+  padding: 0 20px;
+  justify-content: center;
+  align-items: center;
+  background: #e8e8e8;
+  &__item {
+    cursor: pointer;
+    height: 100%;
+    padding: 2.5px;
+    display: flex;
+  }
+  &__button {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    &--add {
+      &:before {
+        content: '';
+        width: 1px;
+        height: 15px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-right: 1.5px solid #6e6e6e;
+        transform: translate(-50%, -50%);
+      }
+
+      &:after {
+        content: '';
+        width: 15px;
+        height: 1px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-top: 1.5px solid #6e6e6e;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+  &__title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #565656;
+    margin-left: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+#FormAddCategory {
+  display: none;
 }
 </style>
